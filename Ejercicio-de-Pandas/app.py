@@ -1,3 +1,5 @@
+import pandas as pd
+
 productos = [
   {"nombre": "Camiseta", "precio": 20, "cantidad_disponible":100},
   {"nombre": "Pantalon", "precio": 30, "cantidad_disponible": 80},
@@ -13,7 +15,7 @@ productos = [
   {"nombre": "Sombrero", "precio": 20, "cantidad_disponible": 55},
   {"nombre": "Pulsera", "precio": 5, "cantidad_disponible": 200},
   {"nombre": "Pendientes", "precio": 15, "cantidad_disponible":180},
-  {"nombre": "Cinturón", "precio": 20, "cantidad_disponible":100},
+  {"nombre": "Cinturon", "precio": 20, "cantidad_disponible":100},
   {"nombre": "Vestido", "precio": 60, "cantidad_disponible": 35},
   {"nombre": "Corbata", "precio": 25, "cantidad_disponible": 75},
   {"nombre": "Bolso", "precio": 70, "cantidad_disponible": 45},
@@ -64,7 +66,17 @@ def simulacion_de_ventas(valor_total_por_productos):
     final += precio
   print('')
   print('El precio final de la compra fue de: $', final)
+  return productos
+
+def generar_DataFrame(stock_actualizado):
+  cantidad_de_producto = []
+  nombre_de_producto = []
+  for cantidad in stock_actualizado:
+    cantidad_de_producto.append(cantidad['cantidad_disponible'])
+    nombre_de_producto.append(cantidad['nombre'])
   
+  df = pd.DataFrame({'Nombre': nombre_de_producto, 'Cantidad disponible': cantidad_de_producto})
+  return df
 
 def ejecutar_programa():
   
@@ -73,7 +85,11 @@ def ejecutar_programa():
   print('Valor total por producto agregado:')
   print(valor_total_por_producto)
   print('')
-  simulacion_de_ventas(valor_total_por_producto)
-  
+  stock_actualizado = simulacion_de_ventas(valor_total_por_producto)
+  print('')
+  DataFrame = generar_DataFrame(stock_actualizado)
+  print('Data Frame creado con exito:')
+  print(DataFrame)
+
 if __name__ == '__main__':
     ejecutar_programa()
